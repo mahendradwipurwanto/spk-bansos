@@ -3,11 +3,41 @@
 		<div class="card">
 			<div class="card-header pb-0">
 				<h4 class="card-title-header">Data Penilaian
+					<?php if(!empty($detail_bansos)):?>
+						- <?= $detail_bansos->bansos;?>
+					<?php else:?>
+					<?php endif;?>
 					<button type="button" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
 						data-bs-target="#tambah"><i class="fas fa-user-plus"></i> Tambah</button>
 				</h4>
 			</div>
 			<div class="card-body pt-0">
+				<form action="<?= site_url('master/penilaian');?>" method="POST">
+					<div class="row">
+						<div class="col-2">
+							Filter Tipe Bansos:
+						</div>
+						<div class="col-4">
+							<select type="text" class="form-control form-control-sm choices w-100 select2"
+								name="bansos_id">
+								<?php if(!empty($bansos)):?>
+								<?php foreach($bansos as $key => $val):?>
+								<option value="<?= $val->id;?>"><?= $val->bansos;?></option>
+								<?php endforeach;?>
+								<?php endif;?>
+							</select>
+						</div>
+						<div class="col-2">
+							<button type="submit" class="btn btn-primary btn-xs">Tampilkan</button>
+						</div>
+					</div>
+				</form>
+				<?php if(is_null($bansos_id)):?>
+				<div class="alert alert-info">
+					<span class="fw-bold text-white">Harap pilih tipe bansos terlebih dahulu untuk menampilkan data
+						penilaian</span>
+				</div>
+				<?php else:?>
 				<table class="table table-bordered table-hover align-items-center w-100 mb-0" id="myTable">
 					<thead>
 						<tr>
@@ -63,6 +93,24 @@
 										<form action="<?= site_url('master/editPenilaian');?>" method="POST">
 											<input type="hidden" name="id" value="<?= $val->id;?>">
 											<div class="mb-3">
+												<label for="formBansos">Tipe Bansos</label>
+												<select type="text"
+													class="form-control form-control-sm choices w-100 select2"
+													name="bansos_id">
+													<optgroup label="current">
+														<option value="<?= $val->bansos_id;?>"><?= $val->bansos;?>
+														</option>
+													</optgroup>
+													<?php if(!empty($bansos)):?>
+													<optgroup label="changes">
+														<?php foreach($bansos as $k => $v):?>
+														<option value="<?= $v->id;?>"><?= $v->bansos;?></option>
+														<?php endforeach;?>
+													</optgroup>
+													<?php endif;?>
+												</select>
+											</div>
+											<div class="mb-3">
 												<label for="formNamaPenduduk">Penduduk</label>
 												<input type="text" class="form-control form-control-sm" name="nama"
 													value="<?= $val->nama;?>" placeholder="Nama Lengkap penduduk"
@@ -72,7 +120,8 @@
 											<?php foreach($val->kategori_penduduk as $k => $v):?>
 											<div class="mb-3">
 												<label for="formKategori">Kriteria <?= $v->kategori;?></label>
-												<input type="hidden" name="kategori_id[]" value="<?= $v->kategori_id;?>">
+												<input type="hidden" name="kategori_id[]"
+													value="<?= $v->kategori_id;?>">
 												<select type="text"
 													class="form-control form-control-sm choices w-100 select2"
 													name="kriteria_id[]">
@@ -134,6 +183,7 @@
 						<?php endif;?>
 					</tbody>
 				</table>
+				<?php endif;?>
 			</div>
 		</div>
 	</div>
@@ -151,6 +201,16 @@
 			</div>
 			<div class="modal-body">
 				<form action="<?= site_url('master/tambahPenilaian');?>" method="POST">
+					<div class="mb-3">
+						<label for="formBansos">Tipe Bansos</label>
+						<select type="text" class="form-control form-control-sm choices w-100 select2" name="bansos_id">
+							<?php if(!empty($bansos)):?>
+							<?php foreach($bansos as $key => $val):?>
+							<option value="<?= $val->id;?>"><?= $val->bansos;?></option>
+							<?php endforeach;?>
+							<?php endif;?>
+						</select>
+					</div>
 					<div class="mb-3">
 						<label for="formNamaPenduduk">Penduduk</label>
 						<select type="text" class="form-control form-control-sm choices w-100 select2"

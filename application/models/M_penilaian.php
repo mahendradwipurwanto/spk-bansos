@@ -15,11 +15,11 @@ class M_penilaian extends CI_Model
         return $query->row()->value;
     }
 
-    function getMatrixKeptusuan(){
+    function getMatrixKeptusuan($bansos_id = null){
         $this->db->select('a.*, b.id, b.nama, b.nik')
         ->from('tb_penilaian a')
         ->join('tb_penduduk b', 'a.penduduk_id = b.id')
-        ->where(['a.is_deleted' => 0])
+        ->where(['a.is_deleted' => 0, 'a.bansos_id' => $bansos_id])
         ;
         
         $models = $this->db->get()->result();
@@ -90,11 +90,11 @@ class M_penilaian extends CI_Model
         return $arr;
     }
 
-    function getNilaiVektorS(){
+    function getNilaiVektorS($bansos_id = null){
         $this->db->select('a.*, b.id, b.nama, b.nik')
         ->from('tb_penilaian a')
         ->join('tb_penduduk b', 'a.penduduk_id = b.id')
-        ->where(['a.is_deleted' => 0])
+        ->where(['a.is_deleted' => 0, 'a.bansos_id' => $bansos_id])
         ;
         
         $models = $this->db->get()->result();
@@ -144,11 +144,11 @@ class M_penilaian extends CI_Model
         return $arr;
     }
 
-    function getNilaiVektorV(){
+    function getNilaiVektorV($bansos_id = null){
         $this->db->select('a.*, b.id, b.nama, b.nik')
         ->from('tb_penilaian a')
         ->join('tb_penduduk b', 'a.penduduk_id = b.id')
-        ->where(['a.is_deleted' => 0])
+        ->where(['a.is_deleted' => 0, 'a.bansos_id' => $bansos_id])
         ;
         
         $models = $this->db->get()->result();

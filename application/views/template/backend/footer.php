@@ -33,6 +33,9 @@
 				element: document.querySelector('#sidebar-dashboard'),
 				intro: "Anda dapat melihat ringkasan mengenai web app pada laman ini"
 			}, {
+				element: document.querySelector('#sidebar-bansos'),
+				intro: "Anda dapat mengelola data tipe bansos pada laman ini"
+			}, {
 				element: document.querySelector('#sidebar-penduduk'),
 				intro: "Anda dapat mengelola data penduduk pada laman ini"
 			}, {
